@@ -1,4 +1,7 @@
 const express = require("express")
+const cors = require("cors")
+
+const allowlist = ['https://nftbiker.xyz', 'https://nftbiker.test', 'http://nftbiker.xyz']
 
 // banned wallets from
 // https://raw.githubusercontent.com/teia-community/teia-report/main/restricted.json
@@ -7,6 +10,26 @@ const bannedWallets = require('./restricted.json')
 const app = express()
 const port = process.env.PORT || 8080
 
+
+const corsOptions = {
+  origin: '',
+  optionsSuccessStatus: 200
+}
+
+var corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = {
+      origin: true,
+      optionsSuccessStatus: 200
+    }
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+app.use(cors(corsOptionsDelegate))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,26 +44,11 @@ app.post('/banned', function (req, res) {
 });
 
 
-function verifyReferrer(req) {
-  console.log(req)
-  let ref = req.get('Referrer')
-  console.log('referrer:', ref)
-  if (typeof ref === 'undefined') return true
-  else if (ref == '') return true
-
-  return ref.match(/^https?:\/\/(www\.)nftbiker.(xyz|test)/im) ? true : false
-}
-
 function isBanned(wallet) {
   return bannedWallets.includes(wallet)
 }
 
 function processRequest(req, res, wallets) {
-  if (!verifyReferrer(req)) {
-    res.status(403).json({})
-    return
-  }
-
   list = typeof wallets === 'string' ? [wallets] : wallets
 
   let b = 0

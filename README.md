@@ -15,11 +15,15 @@ If you have a large number of wallets to check, then do a JSON POST request to t
 
 The result is a hash containing only banned wallets, to reduce size of the response (ie clean wallets are not returned)
 
+## Security
+
+To limit the use of this service to your own website, make sure to adatp CORS settings in the code
+
 ## TODO
 
 ### Security
 
-To limit the use of this service to your own website, you can configure a referrer check through a .env
+To limit the use of this service to your own website, make sure to adatp CORS settings in the code
 
 ### Update restricted list
 
