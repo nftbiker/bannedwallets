@@ -2,18 +2,18 @@ name: Daily restricted wallets update
 
 on:
   schedule:
-    - cron: '15 9 * * *' # Runs every day
+    - cron: "15 9 * * *" # Runs every day
   workflow_dispatch:
 
 jobs:
-  update-csv:
+  update-restricted:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Download New CSV
+      - name: Download new restricted file
         run: |
           if curl -o new-restricted.json https://raw.githubusercontent.com/teia-community/teia-report/main/restricted.json; then
             echo "download successful."

@@ -19,12 +19,6 @@ The result is a hash containing only banned wallets, to reduce size of the respo
 
 To limit the use of this service to your own website, make sure to adatp CORS settings in the code
 
-## TODO
+## Update restricted list
 
-### Security
-
-To limit the use of this service to your own website, make sure to adatp CORS settings in the code
-
-### Update restricted list
-
-The restricted.json list is from teia-report repository, and it's update once per day through a github action.
+The restricted.json list is from teia-report repository, and it's update once per day through a github action worflow
