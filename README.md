@@ -21,4 +21,4 @@ To limit the use of this service to your own website, make sure to adatp CORS se
 
 ## Update restricted list
 
-The restricted.json list is from teia-report repository, and it's update once per day through a github action worflow
+The restricted.json list is from teia-report repository, and it's update once per day through a github action worflow. For this to work, you need to go to “Settings” in your repository, and grant read and write permissions to GitHub Actions in the "Actions" / "General" menu, in the "Workflow permissions" block
