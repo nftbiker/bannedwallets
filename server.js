@@ -11,11 +11,6 @@ const app = express()
 const port = process.env.PORT || 8080
 
 
-const corsOptions = {
-  origin: '',
-  optionsSuccessStatus: 200
-}
-
 var corsOptionsDelegate = function (req, callback) {
   let corsOptions;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
@@ -32,6 +27,10 @@ var corsOptionsDelegate = function (req, callback) {
 app.use(cors(corsOptionsDelegate))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/', function (req, res) {
+  res.send('OK')
+});
 
 app.get('/banned', function (req, res) {
   const wallets = req.query.wallets
